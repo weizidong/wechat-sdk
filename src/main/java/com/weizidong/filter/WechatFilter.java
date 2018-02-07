@@ -12,8 +12,8 @@ import com.weizidong.utils.SignatureUtil;
 import com.weizidong.utils.WechatConfigs;
 import com.weizidong.utils.XStreamFactory;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
@@ -31,7 +31,7 @@ import java.io.StringReader;
  * @date 2018/2/7 15:09
  */
 public class WechatFilter implements Filter {
-    private static Log logger = LogFactory.getLog(WechatFilter.class);
+    private static Logger logger = LogManager.getLogger(WechatFilter.class);
     /**
      * 事件处理器
      */
@@ -61,27 +61,27 @@ public class WechatFilter implements Filter {
         String timestamp = request.getParameter("timestamp");
         // 随机数
         String nonce = request.getParameter("nonce");
-        // wechat-sdk.properties中配置的Token
-        String token = WechatConfigs.getProperty("wechat.token");
         if (WechatConfigs.isDebug()) {
             logger.debug("------------------------获取到微信请求-------------------------");
             logger.debug("微信请求URL:" + request.getServletPath());
             logger.debug("微信请求方式:" + request.getMethod());
-            logger.debug("Query参数:" + request.getQueryString());
-            logger.debug("token:" + token);
-        }
-        // 消息不可靠，直接返回
-        if (!SignatureUtil.checkSignature(token, signature, timestamp, nonce)) {
-            logger.warn("消息不可靠!!!");
-            response.getWriter().write("");
-            return;
         }
         // 如果是get请求,校验来源
         if (StringUtils.equalsIgnoreCase(request.getMethod(), "get")) {
-            logger.info("验证消息的确来自微信服务器!");
-            if (SignatureUtil.checkSignature(token, signature, timestamp, nonce)) {
-                response.getWriter().write(request.getParameter("echostr"));
+            // wechat-sdk.properties中配置的Token
+            String token = WechatConfigs.getProperty("wechat.token");
+            if (WechatConfigs.isDebug()) {
+                logger.debug("Query参数:" + request.getQueryString());
+                logger.debug("token:" + token);
             }
+            if (SignatureUtil.checkSignature(token, signature, timestamp, nonce)) {
+                logger.debug("微信签名验证通过!");
+                response.getWriter().write(request.getParameter("echostr"));
+            } else {
+                logger.debug("微信签名验证失败!");
+                response.getWriter().write("");
+            }
+            logger.debug("-------------------------微信请求完成------------------------------");
         }
         // 如果是post请求,处理消息
         if (StringUtils.equalsIgnoreCase(request.getMethod(), "post")) {

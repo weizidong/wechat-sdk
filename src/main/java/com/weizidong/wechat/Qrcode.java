@@ -8,6 +8,8 @@ import com.weizidong.utils.HttpClientUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.MessageFormat;
 
@@ -18,7 +20,7 @@ import java.text.MessageFormat;
  * @date 2018/2/7 14:19
  */
 public class Qrcode extends BaseResp {
-    private static Log logger = LogFactory.getLog(Qrcode.class);
+    private static Logger logger = LogManager.getLogger(Qrcode.class);
     private static final String CREATE_API = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
     /**
      * 临时的整型参数值

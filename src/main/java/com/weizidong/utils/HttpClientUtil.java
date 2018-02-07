@@ -17,6 +17,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ import java.util.Map;
  * @date 2018/2/7 10:05
  */
 public class HttpClientUtil {
-    private static Log logger = LogFactory.getLog(HttpClientUtil.class);
+    private static Logger logger = LogManager.getLogger(HttpClientUtil.class);
     private static final int SUCCESS_CODE = 200;
 
     /**

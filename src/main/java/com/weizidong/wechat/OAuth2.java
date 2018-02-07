@@ -9,6 +9,8 @@ import com.weizidong.utils.HttpUtil;
 import com.weizidong.utils.WechatConfigs;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.MessageFormat;
 
@@ -19,7 +21,7 @@ import java.text.MessageFormat;
  * @date 2018/2/7 10:15
  */
 public class OAuth2 extends BaseResp {
-    private static Log logger = LogFactory.getLog(OAuth2.class);
+    private static Logger logger = LogManager.getLogger(OAuth2.class);
     /**
      * 授权地址
      */

@@ -7,6 +7,8 @@ import com.weizidong.exception.WeChatException;
 import com.weizidong.utils.HttpClientUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.List;
  * @date 2018/2/7 11:29
  */
 public class UserTag extends BaseResp {
-    private static Log logger = LogFactory.getLog(UserTag.class);
+    private static Logger logger = LogManager.getLogger(UserTag.class);
     private static final String CREATE_API = "https://api.weixin.qq.com/cgi-bin/tags/create?access_token={0}";
     private static final String GET_API = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token={0}";
     private static final String UPDATE_API = "https://api.weixin.qq.com/cgi-bin/tags/update?access_token={0}";

@@ -5,8 +5,8 @@ import com.weizidong.base.BaseResp;
 import com.weizidong.base.ErrCode;
 import com.weizidong.exception.WeChatException;
 import com.weizidong.utils.HttpClientUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.MessageFormat;
 import java.util.Date;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * @date 2018/2/7 11:10
  */
 public class WechatUser extends BaseResp {
-    private static Log logger = LogFactory.getLog(WechatUser.class);
+    private static Logger logger = LogManager.getLogger(WechatUser.class);
     private static final String USER_INFO_API = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang=zh_CN";
     private static final String BATCHGET_USER_API = "https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token={0}";
     private static final String UPDATEREMARK_API = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token={0}";
