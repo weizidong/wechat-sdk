@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="off" monitorInterval="30">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />
+			<PatternLayout pattern="[%-5p] %d{HH:mm:ss.SSS} [%t] (%F:%L) - %msg%n" />
+		</Console>
+<!-- 		<RollingRandomAccessFile name="log" fileName="logs/debug.log"
+			filePattern="logs/debug/$${date:yyyy-MM-dd}/%d{yyyy-MM-dd HH}-%i.log">
+			<Filters>  
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />  
+            </Filters> 
+			<PatternLayout pattern="[%-5p] %d{HH:mm:ss.SSS} [%t] (%F:%L) - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true" interval="24"/>
+				<TimeBasedTriggeringPolicy interval="1"/>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="720" />
+		</RollingRandomAccessFile> -->
+		<RollingRandomAccessFile name="err" fileName="logs/error.log"
+			filePattern="logs/error/%d{yyyy-MM-dd}-%i.log">
+			<Filters>  
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />  
+            </Filters> 
+			<PatternLayout pattern="[%-5p] %d{HH:mm:ss.SSS} [%t] (%F:%L) - %msg%n" />
+			<Policies>
+				<!--<TimeBasedTriggeringPolicy modulate="true" interval="24"/> -->
+				<TimeBasedTriggeringPolicy interval="1"/>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="3" />
+		</RollingRandomAccessFile>
+	</Appenders>
+	<Loggers>
+		<logger name="org.springframework" level="warn"></logger>
+		<logger name="org.mybatis" level="warn"></logger>
+		<logger name="org.apache" level="warn"></logger>
+		<Root level="all">
+			<AppenderRef ref="Console" />
+		<!-- 	<AppenderRef ref="log" /> -->
+			<AppenderRef ref="err" />
+		</Root>
+	</Loggers>
+</Configuration>
