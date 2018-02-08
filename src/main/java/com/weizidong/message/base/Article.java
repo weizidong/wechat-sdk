@@ -1,4 +1,4 @@
-package com.weizidong.message.output.base;
+package com.weizidong.message.base;
 
 /**
  * 图文消息

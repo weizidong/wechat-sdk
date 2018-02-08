@@ -1,7 +1,6 @@
 package com.weizidong.message.output;
 
-import com.weizidong.message.output.base.Image;
-import com.weizidong.message.output.base.OutputMessage;
+import com.weizidong.message.base.Image;
 
 /**
  * 回复图片消息

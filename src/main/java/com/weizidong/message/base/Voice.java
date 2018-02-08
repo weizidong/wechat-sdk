@@ -1,13 +1,13 @@
-package com.weizidong.message.output.base;
+package com.weizidong.message.base;
 
 /**
- * 回复图片消息中的图片对象
+ * 回复语音消息中的语音对象
  * 
  * @author WeiZiDong
  *
  */
 @SuppressWarnings("serial")
-public class Image implements java.io.Serializable {
+public class Voice implements java.io.Serializable {
 	/**
 	 * 通过上传多媒体文件，得到的id
 	 */

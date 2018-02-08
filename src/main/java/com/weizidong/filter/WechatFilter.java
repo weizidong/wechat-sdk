@@ -2,12 +2,12 @@ package com.weizidong.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.weizidong.base.MsgType;
+import com.weizidong.message.base.BaseMessage;
 import com.weizidong.message.handler.IEventHandler;
 import com.weizidong.message.handler.IMessageHandler;
-import com.weizidong.message.input.base.BaseMessage;
-import com.weizidong.message.input.base.InputMessage;
+import com.weizidong.message.input.InputMessage;
 import com.weizidong.message.output.DefaultOutputMessage;
-import com.weizidong.message.output.base.OutputMessage;
+import com.weizidong.message.output.OutputMessage;
 import com.weizidong.utils.SignatureUtil;
 import com.weizidong.utils.WechatConfigs;
 import com.weizidong.utils.XStreamFactory;
@@ -169,6 +169,18 @@ public class WechatFilter implements Filter {
                 return eventHandler.click(msg.toClickEventMessage());
             case MsgType.Event.VIEW:
                 return eventHandler.view(msg.toViewEventMessage());
+            case MsgType.Event.PIC_SYSPHOTO:
+                return eventHandler.picSysPhoto(msg.toPicSysPhotoEventMessage());
+            case MsgType.Event.PIC_PHOTO_OR_ALBUM:
+                return eventHandler.picPhotoOrAlbum(msg.toPicPhotoOrAlbumEventMessage());
+            case MsgType.Event.SCANCODE_PUSH:
+                return eventHandler.scanCodePush(msg.toScanCodePushEventMessage());
+            case MsgType.Event.SCANCODE_WAITMSG:
+                return eventHandler.scanCodeWaitMsg(msg.toScanCodeWaitMsgEventMessage());
+            case MsgType.Event.PIC_WEIXIN:
+                return eventHandler.picWeixin(msg.toPicWeixinEventMessage());
+            case MsgType.Event.LOCATION_SELECT:
+                return eventHandler.locationSelect(msg.toLocationSelectEventMessage());
             default:
                 return null;
         }

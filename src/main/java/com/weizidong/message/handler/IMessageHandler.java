@@ -20,17 +20,21 @@
 package com.weizidong.message.handler;
 
 import com.weizidong.message.input.*;
-import com.weizidong.message.output.base.OutputMessage;
+import com.weizidong.message.output.OutputMessage;
 
 /**
- * 接受消息推送
+ * 接收普通消息
+ * 1、关于重试的消息排重，推荐使用msgid排重。
+ * 2、微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次。假如服务器无法保证在五秒内处理并回复，
+ * 可以直接回复空串，微信服务器不会对此作任何处理，并且不会发起重试。详情请见“发送消息-被动回复消息”。
  *
- * @author WeiZiDong
+ * @author 魏自东
+ * @date 2018/2/8 10:16
  */
 public interface IMessageHandler {
 
     /**
-     * 文字内容的消息处理
+     * 文本消息处理
      *
      * @param msg 接受消息对象
      * @return 输出消息对象

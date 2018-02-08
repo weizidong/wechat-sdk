@@ -1,4 +1,4 @@
-package com.weizidong.message.output.base;
+package com.weizidong.message.base;
 
 /**
  * 回复音乐消息中的音乐对象

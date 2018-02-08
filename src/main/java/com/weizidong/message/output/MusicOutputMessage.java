@@ -1,7 +1,6 @@
 package com.weizidong.message.output;
 
-import com.weizidong.message.output.base.Music;
-import com.weizidong.message.output.base.OutputMessage;
+import com.weizidong.message.base.Music;
 
 /**
  * 回复音乐消息

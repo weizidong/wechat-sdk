@@ -1,7 +1,6 @@
 package com.weizidong.message.output;
 
-import com.weizidong.message.output.base.OutputMessage;
-import com.weizidong.message.output.base.Voice;
+import com.weizidong.message.base.Voice;
 
 /**
  * 回复语音消息

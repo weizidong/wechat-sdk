@@ -1,4 +1,4 @@
-package com.weizidong.message.output.base;
+package com.weizidong.message.base;
 
 /**
  * 回复视频消息中的视频对象

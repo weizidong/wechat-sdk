@@ -1,42 +1,28 @@
 package com.weizidong.message.event;
 
-import com.weizidong.base.MsgType;
-import com.weizidong.message.event.base.EventMessage;
+import com.weizidong.message.base.EventMessage;
 
 /**
  * 自定义菜单事件
- *
+ * <p>
  * 点击菜单跳转链接时的事件推送
- * 
- * @author WeiZiDong
  *
+ * @author 魏自东
+ * @date 2018/2/8 18:03
  */
 public class ViewEventMessage extends EventMessage {
-	/**
-	 * 事件KEY值，设置的跳转URL
-	 */
-	private String EventKey;
-	private String MenuId;
+    private String MenuId;
 
-	@Override
-	public String getEvent() {
-		return MsgType.Event.VIEW;
-	}
+    public ViewEventMessage(String menuId) {
+        MenuId = menuId;
+    }
 
-	public String getEventKey() {
-		return EventKey;
-	}
+    public String getMenuId() {
+        return MenuId;
+    }
 
-	public void setEventKey(String EventKey) {
-		this.EventKey = EventKey;
-	}
-
-	public String getMenuId() {
-		return MenuId;
-	}
-
-	public void setMenuId(String MenuId) {
-		this.MenuId = MenuId;
-	}
+    public void setMenuId(String MenuId) {
+        this.MenuId = MenuId;
+    }
 
 }

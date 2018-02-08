@@ -1,7 +1,5 @@
 package com.weizidong.message.output;
 
-import com.weizidong.message.output.base.OutputMessage;
-
 /**
  * 回复文本消息
  * 

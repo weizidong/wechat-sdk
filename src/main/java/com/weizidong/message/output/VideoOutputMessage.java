@@ -1,7 +1,6 @@
 package com.weizidong.message.output;
 
-import com.weizidong.message.output.base.OutputMessage;
-import com.weizidong.message.output.base.Video;
+import com.weizidong.message.base.Video;
 
 /**
  * 回复视频消息

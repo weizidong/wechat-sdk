@@ -1,46 +1,32 @@
 package com.weizidong.message.event;
 
-import com.weizidong.base.MsgType;
-import com.weizidong.message.event.base.EventMessage;
-import com.weizidong.message.event.base.SendLocationInfo;
+import com.weizidong.message.base.EventMessage;
+import com.weizidong.message.base.SendLocationInfo;
 
 /**
  * 自定义菜单事件
- *
+ * <p>
  * 弹出地理位置选择器的事件推送
- * 
- * @author WeiZiDong
  *
+ * @author 魏自东
+ * @date 2018/2/8 18:08
  */
 public class LocationSelectEventMessage extends EventMessage {
-	/**
-	 * 事件KEY值，与自定义菜单接口中KEY值对应
-	 */
-	private String EventKey;
-	/**
-	 * 发送的位置信息
-	 */
-	private SendLocationInfo SendLocationInfo;
+    /**
+     * 发送的位置信息
+     */
+    private SendLocationInfo SendLocationInfo;
 
-	@Override
-	public String getEvent() {
-		return MsgType.Event.LOCATION_SELECT;
-	}
+    public LocationSelectEventMessage(SendLocationInfo sendLocationInfo) {
+        SendLocationInfo = sendLocationInfo;
+    }
 
-	public String getEventKey() {
-		return EventKey;
-	}
+    public SendLocationInfo getSendLocationInfo() {
+        return SendLocationInfo;
+    }
 
-	public void setEventKey(String EventKey) {
-		this.EventKey = EventKey;
-	}
-
-	public SendLocationInfo getSendLocationInfo() {
-		return SendLocationInfo;
-	}
-
-	public void setSendLocationInfo(SendLocationInfo SendLocationInfo) {
-		this.SendLocationInfo = SendLocationInfo;
-	}
+    public void setSendLocationInfo(SendLocationInfo SendLocationInfo) {
+        this.SendLocationInfo = SendLocationInfo;
+    }
 
 }

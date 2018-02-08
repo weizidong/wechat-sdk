@@ -1,55 +1,55 @@
 package com.weizidong.message.event;
 
-import com.weizidong.base.MsgType;
-import com.weizidong.message.event.base.EventMessage;
+import com.weizidong.message.base.EventMessage;
 
 /**
  * 上报地理位置事件
- * 
- * @author WeiZiDong
  *
+ * @author 魏自东
+ * @date 2018/2/8 18:02
  */
 public class LocationEventMessage extends EventMessage {
-	/**
-	 * 上报地理位置事件
-	 */
-	private String Latitude;
-	/**
-	 * 地理位置经度
-	 */
-	private String Longitude;
-	/**
-	 * 地理位置精度
-	 */
-	private String Precision;
+    /**
+     * 上报地理位置事件
+     */
+    private String Latitude;
+    /**
+     * 地理位置经度
+     */
+    private String Longitude;
+    /**
+     * 地理位置精度
+     */
+    private String Precision;
 
-	@Override
-	public String getEvent() {
-		return MsgType.Event.LOCATION;
-	}
+    public LocationEventMessage(String latitude, String longitude, String precision) {
+        Latitude = latitude;
+        Longitude = longitude;
+        Precision = precision;
+    }
 
-	public String getLatitude() {
-		return Latitude;
-	}
+    public String getLatitude() {
+        return Latitude;
+    }
 
-	public void setLatitude(String Latitude) {
-		this.Latitude = Latitude;
-	}
+    public void setLatitude(String Latitude) {
+        this.Latitude = Latitude;
+    }
 
-	public String getLongitude() {
-		return Longitude;
-	}
+    public String getLongitude() {
+        return Longitude;
+    }
 
-	public void setLongitude(String Longitude) {
-		this.Longitude = Longitude;
-	}
+    public void setLongitude(String Longitude) {
+        this.Longitude = Longitude;
+    }
 
-	public String getPrecision() {
-		return Precision;
-	}
+    public String getPrecision() {
+        return Precision;
+    }
 
-	public void setPrecision(String Precision) {
-		this.Precision = Precision;
-	}
+    public void setPrecision(String Precision) {
+        this.Precision = Precision;
+    }
 
 }

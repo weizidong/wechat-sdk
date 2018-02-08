@@ -1,12 +1,8 @@
-package com.weizidong.message.input.base;
+package com.weizidong.message.input;
 
 import com.alibaba.fastjson.JSON;
+import com.weizidong.message.base.*;
 import com.weizidong.message.event.*;
-import com.weizidong.message.event.base.EventMessage;
-import com.weizidong.message.event.base.ScanCodeInfo;
-import com.weizidong.message.event.base.SendLocationInfo;
-import com.weizidong.message.event.base.SendPicsInfo;
-import com.weizidong.message.input.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,10 +15,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class InputMessage extends BaseMessage {
     /**
-     * 消息类型
-     */
-    private String MsgType;
-    /**
      * 文本消息内容
      */
     private String Content;
@@ -30,6 +22,23 @@ public class InputMessage extends BaseMessage {
      * 图片链接（由系统生成）
      */
     private String PicUrl;
+    /**
+     * 图片消息媒体id，可以调用多媒体文件下载接口拉取数据。<br/>
+     * 语音消息媒体id，可以调用多媒体文件下载接口拉取数据。
+     */
+    private String MediaId;
+    /**
+     * 语音格式，如amr，speex等
+     */
+    private String Format;
+    /**
+     * 语音识别结果，UTF8编码
+     */
+    private String Recognition;
+    /**
+     * 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
+     */
+    private String ThumbMediaId;
     /**
      * 地理位置维度
      */
@@ -59,23 +68,6 @@ public class InputMessage extends BaseMessage {
      */
     private String Url;
     /**
-     * 图片消息媒体id，可以调用多媒体文件下载接口拉取数据。<br/>
-     * 语音消息媒体id，可以调用多媒体文件下载接口拉取数据。
-     */
-    private String MediaId;
-    /**
-     * 语音格式，如amr，speex等
-     */
-    private String Format;
-    /**
-     * 语音识别结果，UTF8编码
-     */
-    private String Recognition;
-    /**
-     * 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
-     */
-    private String ThumbMediaId;
-    /**
      * 事件类型
      */
     private String Event;
@@ -90,10 +82,6 @@ public class InputMessage extends BaseMessage {
      */
     private String Ticket;
     /**
-     * 指菜单ID，如果是个性化菜单，则可以通过这个字段，知道是哪个规则的菜单被点击了。
-     */
-    private String MenuId;
-    /**
      * 地理位置纬度
      */
     private String Latitude;
@@ -106,35 +94,9 @@ public class InputMessage extends BaseMessage {
      */
     private String Precision;
     /**
-     * 群发的消息ID
+     * 指菜单ID，如果是个性化菜单，则可以通过这个字段，知道是哪个规则的菜单被点击了。
      */
-    private String MsgID;
-    /**
-     * 群发的结构，为“send success”或“send fail”或“err(num)”。但send
-     * success时，也有可能因用户拒收公众号的消息、系统错误等原因造成少量用户接收失败。err(num)是审核失败的具体原因，可能的情况如下：
-     * err(10001), //涉嫌广告 err(20001), //涉嫌政治 err(20004), //涉嫌社会 err(20002), //涉嫌色情
-     * err(20006), //涉嫌违法犯罪 err(20008), //涉嫌欺诈 err(20013), //涉嫌版权 err(22000),
-     * //涉嫌互推(互相宣传) err(21000), //涉嫌其他 err(30001) // 原创校验出现系统错误且用户选择了被判为转载就不群发
-     * err(30002) // 原创校验被判定为不能群发 err(30003) // 原创校验被判定为转载文且用户选择了被判为转载就不群发
-     */
-    private String Status;
-    /**
-     * tag_id下粉丝数；或者openid_list中的粉丝数
-     */
-    private Integer TotalCount;
-    /**
-     * 过滤（过滤是指特定地区、性别的过滤、用户设置拒收的过滤，用户接收已超4条的过滤）后，准备发送的粉丝数，原则上，FilterCount =
-     * SentCount + ErrorCount
-     */
-    private Integer FilterCount;
-    /**
-     * 发送成功的粉丝数
-     */
-    private Integer SentCount;
-    /**
-     * 发送失败的粉丝数
-     */
-    private Integer ErrorCount;
+    private String MenuId;
     /**
      * 扫码推事件的事件推送
      */
@@ -147,16 +109,6 @@ public class InputMessage extends BaseMessage {
      * 弹出地理位置选择器的事件推送
      */
     private SendLocationInfo SendLocationInfo;
-
-    @Override
-    public String getMsgType() {
-        return MsgType;
-    }
-
-    @XmlElement(name = "MsgType")
-    public void setMsgType(String msgType) {
-        MsgType = msgType;
-    }
 
     public String getContent() {
         return Content;
@@ -190,8 +142,8 @@ public class InputMessage extends BaseMessage {
     }
 
     @XmlElement(name = "Location_Y")
-    public void setLocationY(String location_Y) {
-        Location_Y = location_Y;
+    public void setLocation_Y(String locationY) {
+        Location_Y = locationY;
     }
 
     public Long getScale() {
@@ -240,8 +192,7 @@ public class InputMessage extends BaseMessage {
     }
 
     public String getEvent() {
-        // 转成小写
-        return Event != null ? Event.toLowerCase() : null;
+        return Event;
     }
 
     @XmlElement(name = "Event")
@@ -330,59 +281,6 @@ public class InputMessage extends BaseMessage {
         this.Precision = Precision;
     }
 
-    public String getStatus() {
-        return Status;
-    }
-
-    @XmlElement(name = "Status")
-    public void setStatus(String Status) {
-        this.Status = Status;
-    }
-
-    public Integer getTotalCount() {
-        return TotalCount;
-    }
-
-    @XmlElement(name = "TotalCount")
-    public void setTotalCount(Integer TotalCount) {
-        this.TotalCount = TotalCount;
-    }
-
-    public Integer getFilterCount() {
-        return FilterCount;
-    }
-
-    @XmlElement(name = "FilterCount")
-    public void setFilterCount(Integer FilterCount) {
-        this.FilterCount = FilterCount;
-    }
-
-    public Integer getSentCount() {
-        return SentCount;
-    }
-
-    @XmlElement(name = "SentCount")
-    public void setSentCount(Integer SentCount) {
-        this.SentCount = SentCount;
-    }
-
-    public Integer getErrorCount() {
-        return ErrorCount;
-    }
-
-    @XmlElement(name = "ErrorCount")
-    public void setErrorCount(Integer ErrorCount) {
-        this.ErrorCount = ErrorCount;
-    }
-
-    public String getMsgID() {
-        return MsgID;
-    }
-
-    @XmlElement(name = "MsgID")
-    public void setMsgID(String MsgID) {
-        this.MsgID = MsgID;
-    }
 
     public ScanCodeInfo getScanCodeInfo() {
         return ScanCodeInfo;
@@ -411,6 +309,15 @@ public class InputMessage extends BaseMessage {
         this.SendPicsInfo = SendPicsInfo;
     }
 
+    public String getMenuId() {
+        return MenuId;
+    }
+
+    @XmlElement(name = "MenuId")
+    public void setMenuId(String MenuId) {
+        this.MenuId = MenuId;
+    }
+
     public TextInputMessage toTextInputMessage() {
         TextInputMessage inputMessage = new TextInputMessage(Content);
         initMessage(inputMessage);
@@ -418,53 +325,37 @@ public class InputMessage extends BaseMessage {
     }
 
     public ImageInputMessage toImageInputMessage() {
-        ImageInputMessage inputMessage = new ImageInputMessage();
-        inputMessage.setPicUrl(PicUrl);
-        inputMessage.setMediaId(MediaId);
+        ImageInputMessage inputMessage = new ImageInputMessage(PicUrl, MediaId);
         initMessage(inputMessage);
         return inputMessage;
     }
 
     public VoiceInputMessage toVoiceInputMessage() {
-        VoiceInputMessage inputMessage = new VoiceInputMessage();
-        inputMessage.setFormat(PicUrl);
-        inputMessage.setMediaId(MediaId);
-        inputMessage.setRecognition(Recognition);
+        VoiceInputMessage inputMessage = new VoiceInputMessage(MediaId, Format, Recognition);
         initMessage(inputMessage);
         return inputMessage;
     }
 
     public VideoInputMessage toVideoInputMessage() {
-        VideoInputMessage inputMessage = new VideoInputMessage();
-        inputMessage.setMediaId(MediaId);
-        inputMessage.setThumbMediaId(ThumbMediaId);
+        VideoInputMessage inputMessage = new VideoInputMessage(MediaId, ThumbMediaId);
         initMessage(inputMessage);
         return inputMessage;
     }
 
     public ShortVideoInputMessage toShortVideoInputMessage() {
-        ShortVideoInputMessage inputMessage = new ShortVideoInputMessage();
-        inputMessage.setMediaId(MediaId);
-        inputMessage.setThumbMediaId(ThumbMediaId);
+        ShortVideoInputMessage inputMessage = new ShortVideoInputMessage(MediaId, ThumbMediaId);
         initMessage(inputMessage);
         return inputMessage;
     }
 
     public LocationInputMessage toLocationInputMessage() {
-        LocationInputMessage inputMessage = new LocationInputMessage();
-        inputMessage.setLocation_X(Location_X);
-        inputMessage.setLocation_Y(Location_Y);
-        inputMessage.setLabel(Label);
-        inputMessage.setScale(Scale);
+        LocationInputMessage inputMessage = new LocationInputMessage(Location_X, Location_Y, Scale, Label);
         initMessage(inputMessage);
         return inputMessage;
     }
 
     public LinkInputMessage toLinkInputMessage() {
-        LinkInputMessage inputMessage = new LinkInputMessage();
-        inputMessage.setTitle(Title);
-        inputMessage.setDescription(Description);
-        inputMessage.setUrl(Url);
+        LinkInputMessage inputMessage = new LinkInputMessage(Title, Description, Url);
         initMessage(inputMessage);
         return inputMessage;
     }
@@ -482,89 +373,67 @@ public class InputMessage extends BaseMessage {
     }
 
     public QrsceneScanEventMessage toQrsceneScanEventMessage() {
-        QrsceneScanEventMessage eventMessage = new QrsceneScanEventMessage();
-        eventMessage.setEventKey(EventKey);
-        eventMessage.setTicket(Ticket);
+        QrsceneScanEventMessage eventMessage = new QrsceneScanEventMessage(Ticket);
         initEventMessage(eventMessage);
         return eventMessage;
     }
 
     public QrsceneSubscribeEventMessage toQrsceneSubscribeEventMessage() {
-        QrsceneSubscribeEventMessage eventMessage = new QrsceneSubscribeEventMessage();
-        eventMessage.setEventKey(EventKey);
-        eventMessage.setTicket(Ticket);
+        QrsceneSubscribeEventMessage eventMessage = new QrsceneSubscribeEventMessage(Ticket);
         initEventMessage(eventMessage);
         return eventMessage;
     }
 
     public LocationEventMessage toLocationEventMessage() {
-        LocationEventMessage eventMessage = new LocationEventMessage();
-        eventMessage.setLatitude(Latitude);
-        eventMessage.setLongitude(Longitude);
-        eventMessage.setPrecision(Precision);
+        LocationEventMessage eventMessage = new LocationEventMessage(Latitude, Longitude, Precision);
         initEventMessage(eventMessage);
         return eventMessage;
     }
 
     public ClickEventMessage toClickEventMessage() {
         ClickEventMessage eventMessage = new ClickEventMessage();
-        eventMessage.setEventKey(EventKey);
         initEventMessage(eventMessage);
         return eventMessage;
     }
 
     public ViewEventMessage toViewEventMessage() {
-        ViewEventMessage eventMessage = new ViewEventMessage();
-        eventMessage.setEventKey(EventKey);
-        eventMessage.setMenuId(MenuId);
+        ViewEventMessage eventMessage = new ViewEventMessage(MenuId);
         initEventMessage(eventMessage);
         return eventMessage;
     }
 
     public ScanCodePushEventMessage toScanCodePushEventMessage() {
-        ScanCodePushEventMessage eventMessage = new ScanCodePushEventMessage();
-        eventMessage.setEventKey(EventKey);
-        eventMessage.setScanCodeInfo(ScanCodeInfo);
+        ScanCodePushEventMessage eventMessage = new ScanCodePushEventMessage(ScanCodeInfo);
         initEventMessage(eventMessage);
         return eventMessage;
     }
 
     public ScanCodeWaitMsgEventMessage toScanCodeWaitMsgEventMessage() {
-        ScanCodeWaitMsgEventMessage eventMessage = new ScanCodeWaitMsgEventMessage();
-        eventMessage.setEventKey(EventKey);
-        eventMessage.setScanCodeInfo(ScanCodeInfo);
+        ScanCodeWaitMsgEventMessage eventMessage = new ScanCodeWaitMsgEventMessage(ScanCodeInfo);
         initEventMessage(eventMessage);
         return eventMessage;
     }
 
     public PicSysPhotoEventMessage toPicSysPhotoEventMessage() {
-        PicSysPhotoEventMessage eventMessage = new PicSysPhotoEventMessage();
-        eventMessage.setEventKey(EventKey);
-        eventMessage.setSendPicsInfo(SendPicsInfo);
+        PicSysPhotoEventMessage eventMessage = new PicSysPhotoEventMessage(SendPicsInfo);
         initEventMessage(eventMessage);
         return eventMessage;
     }
 
     public PicPhotoOrAlbumEventMessage toPicPhotoOrAlbumEventMessage() {
-        PicPhotoOrAlbumEventMessage eventMessage = new PicPhotoOrAlbumEventMessage();
-        eventMessage.setEventKey(EventKey);
-        eventMessage.setSendPicsInfo(SendPicsInfo);
+        PicPhotoOrAlbumEventMessage eventMessage = new PicPhotoOrAlbumEventMessage(SendPicsInfo);
         initEventMessage(eventMessage);
         return eventMessage;
     }
 
     public PicWeixinEventMessage toPicWeixinEventMessage() {
-        PicWeixinEventMessage eventMessage = new PicWeixinEventMessage();
-        eventMessage.setEventKey(EventKey);
-        eventMessage.setSendPicsInfo(SendPicsInfo);
+        PicWeixinEventMessage eventMessage = new PicWeixinEventMessage(SendPicsInfo);
         initEventMessage(eventMessage);
         return eventMessage;
     }
 
     public LocationSelectEventMessage toLocationSelectEventMessage() {
-        LocationSelectEventMessage eventMessage = new LocationSelectEventMessage();
-        eventMessage.setEventKey(EventKey);
-        eventMessage.setSendLocationInfo(SendLocationInfo);
+        LocationSelectEventMessage eventMessage = new LocationSelectEventMessage(SendLocationInfo);
         initEventMessage(eventMessage);
         return eventMessage;
     }
@@ -572,23 +441,15 @@ public class InputMessage extends BaseMessage {
     private void initMessage(BaseMessage inputMessage) {
         inputMessage.setToUserName(this.getToUserName());
         inputMessage.setFromUserName(this.getFromUserName());
-        inputMessage.setMsgId(this.getMsgId());
         inputMessage.setCreateTime(this.getCreateTime());
+        inputMessage.setMsgId(this.getMsgId());
+        inputMessage.setMsgType(this.getMsgType());
     }
 
     private void initEventMessage(EventMessage eventMessage) {
-        eventMessage.setToUserName(this.getToUserName());
-        eventMessage.setFromUserName(this.getFromUserName());
-        eventMessage.setCreateTime(this.getCreateTime());
-    }
-
-    public String getMenuId() {
-        return MenuId;
-    }
-
-    @XmlElement(name = "MenuId")
-    public void setMenuId(String MenuId) {
-        this.MenuId = MenuId;
+        initMessage(eventMessage);
+        eventMessage.setEvent(Event);
+        eventMessage.setEventKey(EventKey);
     }
 
     @Override

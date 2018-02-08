@@ -1,7 +1,6 @@
 package com.weizidong.message.input;
 
-import com.weizidong.base.MsgType;
-import com.weizidong.message.input.base.BaseMessage;
+import com.weizidong.message.base.BaseMessage;
 
 /**
  * 小视频消息
@@ -19,9 +18,9 @@ public class ShortVideoInputMessage extends BaseMessage {
      */
     private String ThumbMediaId;
 
-    @Override
-    public String getMsgType() {
-        return MsgType.SHORTVIDEO;
+    public ShortVideoInputMessage(String mediaId, String thumbMediaId) {
+        MediaId = mediaId;
+        ThumbMediaId = thumbMediaId;
     }
 
     public String getMediaId() {

@@ -1,7 +1,6 @@
 package com.weizidong.message.input;
 
-import com.weizidong.base.MsgType;
-import com.weizidong.message.input.base.BaseMessage;
+import com.weizidong.message.base.BaseMessage;
 
 /**
  * 文本消息
@@ -17,11 +16,6 @@ public class TextInputMessage extends BaseMessage {
 
     public TextInputMessage(String Content) {
         this.Content = Content;
-    }
-
-    @Override
-    public String getMsgType() {
-        return MsgType.TEXT;
     }
 
     public String getContent() {
