@@ -79,8 +79,7 @@ public class Ticket extends BaseResp {
         String api = MessageFormat.format(TICKET_API, t.getAccess_token());
         ticket = HttpClientUtil.doGet(api, Ticket.class);
         if (ticket.getTicket() == null) {
-            log.error("获取Ticket失败：" + ticket.toError());
-            throw new WeChatException(ticket.toError());
+            throw new WeChatException(ticket.toError("获取Ticket失败"));
         }
         debug("微信获取的Ticket：" + ticket.toString());
         ticket.setTimestamp(System.currentTimeMillis());

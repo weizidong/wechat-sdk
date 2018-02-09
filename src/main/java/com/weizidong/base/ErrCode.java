@@ -180,8 +180,8 @@ public class ErrCode {
     public static String getCause(int statusCode) {
         if (RETURN_CODE.containsKey(statusCode)) {
             //根据错误码返回错误代码
-            return "\t：" + RETURN_CODE.get(statusCode);
+            return "\t==>\t" + RETURN_CODE.get(statusCode);
         }
-        return "\t：操作异常";
+        return "\t==>\t操作异常";
     }
 }

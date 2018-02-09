@@ -5,8 +5,6 @@ import com.weizidong.base.BaseResp;
 import com.weizidong.base.ErrCode;
 import com.weizidong.exception.WeChatException;
 import com.weizidong.utils.HttpClientUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -79,8 +77,7 @@ public class UserTag extends BaseResp {
         String api = MessageFormat.format(CREATE_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("创建标签失败：" + err);
+            String err = "创建标签失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
         return resp.getJSONObject("tag").toJavaObject(UserTag.class);
@@ -96,8 +93,7 @@ public class UserTag extends BaseResp {
         String api = MessageFormat.format(GET_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doGet(api, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("获取公众号已创建的标签失败：" + err);
+            String err = "获取公众号已创建的标签失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
         return resp.getJSONArray("tags").toJavaList(UserTag.class);
@@ -114,8 +110,7 @@ public class UserTag extends BaseResp {
         String api = MessageFormat.format(UPDATE_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("编辑标签失败：" + err);
+            String err = "编辑标签失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
     }
@@ -132,8 +127,7 @@ public class UserTag extends BaseResp {
         String api = MessageFormat.format(DELETE_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("删除标签失败：" + err);
+            String err = "删除标签失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
     }
@@ -155,8 +149,7 @@ public class UserTag extends BaseResp {
         String api = MessageFormat.format(GET_USER_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("获取标签下粉丝列表失败：" + err);
+            String err = "获取标签下粉丝列表失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
         return resp;
@@ -175,8 +168,7 @@ public class UserTag extends BaseResp {
         String api = MessageFormat.format(TAG_MEMBERS_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("批量为用户打标签失败：" + err);
+            String err = "批量为用户打标签失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
     }
@@ -193,8 +185,7 @@ public class UserTag extends BaseResp {
         String api = MessageFormat.format(UNTAG_MEMBERS_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("批量为用户取消标签失败：" + err);
+            String err = "批量为用户取消标签失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
     }
@@ -210,8 +201,7 @@ public class UserTag extends BaseResp {
         String api = MessageFormat.format(GETIDLIST_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("获取用户身上的标签列表失败：" + err);
+            String err = "获取用户身上的标签列表失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
         return resp.getJSONArray("tagid_list").toJavaList(Integer.class);

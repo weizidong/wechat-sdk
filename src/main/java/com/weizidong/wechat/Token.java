@@ -81,8 +81,7 @@ public class Token extends BaseResp {
         String api = MessageFormat.format(TOKEN_API, appid, secret);
         token = HttpClientUtil.doGet(api, Token.class);
         if (token.getAccess_token() == null) {
-            log.error("获取Token失败：" + token.toError());
-            throw new WeChatException(token.toError());
+            throw new WeChatException(token.toError("获取Token失败"));
         }
         debug("微信获取的Token：" + token.toString());
         token.setTimestamp(ts);

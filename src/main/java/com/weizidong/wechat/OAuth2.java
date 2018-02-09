@@ -7,8 +7,6 @@ import com.weizidong.exception.WeChatException;
 import com.weizidong.utils.HttpClientUtil;
 import com.weizidong.utils.HttpUtil;
 import com.weizidong.utils.WechatConfigs;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -97,8 +95,7 @@ public class OAuth2 extends BaseResp {
         String api = MessageFormat.format(ACCESS_TOKEN_API, appid, secret, code);
         JSONObject resp = HttpClientUtil.doGet(api, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger("errcode") + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger("errcode"));
-            logger.error("通过code换取网页授权access_token失败：" + err);
+            String err = "通过code换取网页授权access_token失败：\t" + resp.getInteger("errcode") + "：" + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger("errcode"));
             throw new WeChatException(err);
         }
         this.openid = resp.getString("openid");
@@ -115,8 +112,7 @@ public class OAuth2 extends BaseResp {
         String api = MessageFormat.format(USERINFO_API, accessToken, openid);
         WechatUser resp = HttpClientUtil.doGet(api, WechatUser.class);
         if (resp.getErrcode() != null && resp.getErrcode() != 0) {
-            logger.error("拉取用户信息失败：" + resp.toError());
-            throw new WeChatException(resp.toError());
+            throw new WeChatException(resp.toError("拉取用户信息失败"));
         }
         if (WechatConfigs.isDebug()) {
             logger.debug("拉取用户信息：" + resp.toString());

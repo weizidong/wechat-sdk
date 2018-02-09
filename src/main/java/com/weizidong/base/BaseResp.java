@@ -32,7 +32,11 @@ public class BaseResp implements Serializable {
     }
 
     public String toError() {
-        return errcode + " : " + errmsg + ErrCode.getCause(errcode);
+        return errcode + "：" + errmsg + ErrCode.getCause(errcode);
+    }
+
+    public String toError(String msg) {
+        return msg + "：\t" + errcode + "：" + errmsg + ErrCode.getCause(errcode);
     }
 
     @Override

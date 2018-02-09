@@ -6,8 +6,6 @@ import com.weizidong.base.ErrCode;
 import com.weizidong.exception.WeChatException;
 import com.weizidong.utils.HttpClientUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -67,8 +65,7 @@ public class Qrcode extends BaseResp {
         String api = MessageFormat.format(CREATE_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("创建二维码ticket失败：" + err);
+            String err = "创建二维码ticket失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
         return resp.getString("ticket");

@@ -220,8 +220,7 @@ public class WechatUser extends BaseResp {
         String api = MessageFormat.format(USER_INFO_API, t.getAccess_token(), openid);
         WechatUser user = HttpClientUtil.doGet(api, WechatUser.class);
         if (user.getErrcode() != null && user.getErrcode() != 0) {
-            logger.error("获取用户基本信息失败：" + user.toError());
-            throw new WeChatException(user.toError());
+            throw new WeChatException(user.toError("获取用户基本信息失败"));
         }
         return user;
     }
@@ -239,8 +238,7 @@ public class WechatUser extends BaseResp {
         String api = MessageFormat.format(BATCHGET_USER_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("批量获取用户基本信息失败：" + err);
+            String err = "批量获取用户基本信息失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
         return resp.getJSONArray("user_info_list").toJavaList(WechatUser.class);
@@ -258,8 +256,7 @@ public class WechatUser extends BaseResp {
         String api = MessageFormat.format(UPDATEREMARK_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("设置用户备注名失败：" + err);
+            String err = "设置用户备注名失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
     }
@@ -281,8 +278,7 @@ public class WechatUser extends BaseResp {
         String api = MessageFormat.format(GET_USER_API, t.getAccess_token(), nextOpenid);
         JSONObject resp = HttpClientUtil.doGet(api, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("获取用户列表失败：" + err);
+            String err = "获取用户列表失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
         return resp;
@@ -307,8 +303,7 @@ public class WechatUser extends BaseResp {
         String api = MessageFormat.format(GETBLACKLIST_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("获取公众号的黑名单列表失败：" + err);
+            String err = "获取公众号的黑名单列表失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
         return resp;
@@ -326,8 +321,7 @@ public class WechatUser extends BaseResp {
         String api = MessageFormat.format(BATCHBLACKLIST_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("拉黑用户失败：" + err);
+            String err = "拉黑用户失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
     }
@@ -344,8 +338,7 @@ public class WechatUser extends BaseResp {
         String api = MessageFormat.format(BATCHUNBLACKLIST_API, t.getAccess_token());
         JSONObject resp = HttpClientUtil.doPostJson(api, param, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
-            String err = resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
-            logger.error("取消拉黑用户失败：" + err);
+            String err = "取消拉黑用户失败：\t" + resp.getInteger(ERRCODE) + " : " + resp.getString("errmsg") + ErrCode.getCause(resp.getInteger(ERRCODE));
             throw new WeChatException(err);
         }
     }
