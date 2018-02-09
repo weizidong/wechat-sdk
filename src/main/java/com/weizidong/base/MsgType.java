@@ -52,6 +52,10 @@ public abstract class MsgType {
      */
     public static final String WXCARD = "wxcard";
     /**
+     * 小程序卡片(发送)
+     */
+    public static final String MINIPROGRAMPAGE = "miniprogrampage";
+    /**
      * 事件推送
      */
     public static final String EVENT = "event";

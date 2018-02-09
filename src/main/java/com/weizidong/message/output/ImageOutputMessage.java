@@ -32,6 +32,17 @@ public class ImageOutputMessage extends OutputMessage {
      * <p>
      * 并且MsgType的值为image.
      *
+     * @param mediaId 通过上传多媒体文件，得到的id
+     */
+    public ImageOutputMessage(String mediaId) {
+        this.Image = new Image(mediaId);
+    }
+
+    /**
+     * 创建一个图片 的Output Message.
+     * <p>
+     * 并且MsgType的值为image.
+     *
      * @param image 图片
      */
     public ImageOutputMessage(Image image) {
