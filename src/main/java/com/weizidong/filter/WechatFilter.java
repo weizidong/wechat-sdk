@@ -98,7 +98,7 @@ public class WechatFilter implements Filter {
             // 处理输入消息，返回结果
             String xmlMsg = XStreamFactory.inputStream2String(in);
             if (WechatConfigs.isDebug()) {
-                logger.debug("获取到的的xml：" + xmlMsg);
+                logger.debug("获取到的的xml：\n" + xmlMsg);
             }
             JAXBContext context = JAXBContext.newInstance(InputMessage.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();

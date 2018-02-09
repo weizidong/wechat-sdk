@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 
 /**
  * Redis工具类
+ *
+ * @author 魏自东
+ * @date 2018/2/9 17:15
  */
 public class RedisUtil {
     private static final Logger LOGGER = LogManager.getLogger(RedisUtil.class);
@@ -69,8 +72,6 @@ public class RedisUtil {
      * <p>
      * 假如 key 储存的值不是字符串类型，返回一个错误，因为 GET 只能用于处理字符串值。
      *
-     * @param key
-     * @param clazz
      * @return 当 key 不存在时，返回 nil ，否则，返回 key 的值。 如果 key 不是字符串类型，那么返回一个错误。
      */
     public <T> T get(String key, Class<T> clazz) {

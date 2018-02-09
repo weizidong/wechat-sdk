@@ -4,13 +4,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
-import java.util.Base64;
-import java.util.Random;
 
 /**
  * 数字签名工具类
  *
- * @author WeiZiDong
+ * @author 魏自东
+ * @date 2018/2/9 17:13
  */
 public class SignatureUtil {
 
@@ -31,9 +30,9 @@ public class SignatureUtil {
         // 将token、timestamp、nonce三个参数进行字典序排序
         Arrays.sort(tmpArr);
         // 将三个参数字符串拼接成一个字符串
-        String tmpStr = ArrayToString(tmpArr);
+        String tmpStr = arrayToString(tmpArr);
         // 进行sha1加密
-        tmpStr = SHA1Encode(tmpStr);
+        tmpStr = sha1Encode(tmpStr);
         return StringUtils.equalsIgnoreCase(tmpStr, signature);
     }
 
@@ -50,15 +49,15 @@ public class SignatureUtil {
         // 将token、timestamp、nonce三个参数进行字典序排序
         Arrays.sort(tmpArr);
         // 将三个参数字符串拼接成一个字符串
-        String tmpStr = ArrayToString(tmpArr);
-        tmpStr = SHA1Encode(tmpStr);
+        String tmpStr = arrayToString(tmpArr);
+        tmpStr = sha1Encode(tmpStr);
         return tmpStr;
     }
 
     /**
      * 数组转字符串
      */
-    public static String ArrayToString(String[] arr) {
+    public static String arrayToString(String[] arr) {
         StringBuilder bf = new StringBuilder();
         for (String str : arr) {
             bf.append(str);
@@ -69,7 +68,7 @@ public class SignatureUtil {
     /**
      * 进行sha1加密
      */
-    public static String SHA1Encode(String sourceString) {
+    public static String sha1Encode(String sourceString) {
         String resultString = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
@@ -88,25 +87,6 @@ public class SignatureUtil {
             buf.append(Long.toString((int) aByte & 0xff, 16));
         }
         return buf.toString().toLowerCase();
-    }
-
-    /**
-     * 生成令牌
-     */
-    public static String generateToke() {
-        String value = String.valueOf(System.currentTimeMillis());
-        value += UUIDUtil.get();
-        value += String.valueOf(new Random().nextInt(1000));
-        try {
-            MessageDigest md = MessageDigest.getInstance("md5");
-            // 产生数据的指纹
-            byte[] b = md.digest(value.getBytes());
-            // Base64编码, 生成token
-            return Base64.getEncoder().encodeToString(b);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
 }

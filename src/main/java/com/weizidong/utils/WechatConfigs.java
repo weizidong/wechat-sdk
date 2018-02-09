@@ -1,7 +1,5 @@
 package com.weizidong.utils;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +13,8 @@ import java.util.Properties;
 /**
  * 微信平台调用基础配置
  *
- * @author WeiZiDong
+ * @author 魏自东
+ * @date 2018/2/9 17:13
  */
 public class WechatConfigs {
     private static Logger logger = LogManager.getLogger(WechatConfigs.class);
