@@ -76,6 +76,19 @@ public class Media {
     }
 
     /**
+     * 获取临时素材下载路径
+     *
+     * @param mediaId 媒体文件ID
+     * @return 下载路径
+     */
+    public static String getPath(String mediaId) {
+        Token t = Token.get();
+        String api = MessageFormat.format(GET_API, t.getAccess_token(), mediaId);
+        debug("请求下载：\t" + api);
+        return api;
+    }
+
+    /**
      * debug输出
      *
      * @param msg msg
