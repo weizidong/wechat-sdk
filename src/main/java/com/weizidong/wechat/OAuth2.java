@@ -37,6 +37,10 @@ public class OAuth2 extends BaseResp {
      */
     private String openid;
     /**
+     * unionid
+     */
+    private String unionid;
+    /**
      * accessToken
      */
     private String accessToken;
@@ -92,6 +96,15 @@ public class OAuth2 extends BaseResp {
     public void getAccessToken(String code) {
         String appid = WechatConfigs.getOAuthAppId();
         String secret = WechatConfigs.getOAuthSecret();
+        getAccessToken(appid, secret, code);
+    }
+
+    /**
+     * 通过code换取网页授权access_token
+     *
+     * @param code code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。
+     */
+    public void getAccessToken(String appid, String secret, String code) {
         String api = MessageFormat.format(ACCESS_TOKEN_API, appid, secret, code);
         JSONObject resp = HttpClientUtil.doGet(api, JSONObject.class);
         if (resp.containsKey(ERRCODE) && resp.getInteger(ERRCODE) != 0) {
@@ -99,6 +112,7 @@ public class OAuth2 extends BaseResp {
             throw new WeChatException(err);
         }
         this.openid = resp.getString("openid");
+        this.unionid = resp.getString("unionid");
         this.accessToken = resp.getString("access_token");
         if (WechatConfigs.isDebug()) {
             logger.debug("通过code换取网页授权access_token：" + this.toString());
@@ -122,7 +136,7 @@ public class OAuth2 extends BaseResp {
 
     @Override
     public String toString() {
-        return "{\"openid\":\"" + openid + "\",\"accessToken\":\"" + accessToken + "\"}";
+        return "{\"unionid\":\"" + unionid + "\",\"openid\":\"" + openid + "\",\"accessToken\":\"" + accessToken + "\"}";
     }
 
     public String getOpenid() {
@@ -131,6 +145,14 @@ public class OAuth2 extends BaseResp {
 
     public void setOpenid(String openid) {
         this.openid = openid;
+    }
+
+    public String getUnionid() {
+        return unionid;
+    }
+
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
     }
 
     public String getAccessToken() {
